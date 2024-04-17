@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Hello!{% endblock %}
+
+{% block body %}
+
+<h1>Exam 1</h1>
+<div id="question"
+    class="slide-RL"
+    hx-get="/next"
+    hx-swap="innerHTML transition:true"
+    hx-trigger="load">Waiting for question</div>
+
+<div class="controls">
+    <button type="button"
+        hx-get="/previous" 
+        hx-target="#question"
+        hx-swap="innerHTML transition:true"
+        >Previous</button>
+    <button type="button"
+        hx-get="/next" 
+        hx-target="#question"
+        hx-swap="innerHTML transition:true"
+        >next</button>
+</div>
+
+{% endblock %}
+
+

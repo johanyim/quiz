@@ -1,0 +1,41 @@
+@keyframes fade-in {
+    from { opacity: 0; }
+}
+
+@keyframes fade-out {
+    to { opacity: 0; }
+}
+
+@keyframes slide-from-right {
+    from { transform: translateX(90px); }
+}
+
+@keyframes slide-to-left {
+    to { transform: translateX(-90px); }
+}
+
+.slide-RL {
+    view-transition-name: slide-RL;
+}
+
+::view-transition-old(slide-RL) {
+    animation: 40ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+    120ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+}
+::view-transition-new(slide-RL) {
+    animation: 80ms cubic-bezier(0, 0, 0.2, 1) 20ms both fade-in,
+    120ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+}
+
+.slide-LR {
+    view-transition-name: slide-LR;
+}
+
+::view-transition-old(slide-LR) {
+    animation: 40ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+    120ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-right;
+}
+::view-transition-new(slide-LR) {
+    animation: 80ms cubic-bezier(0, 0, 0.2, 1) 20ms both fade-in,
+    120ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-left;
+}

@@ -1,0 +1,15 @@
+<div class="question">
+    {{ question_text }}
+</div>
+
+<div class="text-input">
+    <!-- <label>Your answer:</label> -->
+    text
+    <input 
+        class="text-input" 
+        type="text" 
+        name="response"
+        hx-post="/response"
+        hx-trigger="input changed delay:500ms"
+        >
+</div

@@ -1,0 +1,12 @@
+<div class="question">
+    {{ question_text }}
+</div>
+
+<div class="multiple-choice-input">
+    {% for (index,option) in options.iter().enumerate() %}
+    <!-- <button>{{ option }}</button> -->
+    <input id="id-{{ index }}" type="radio" name="{{ question_text }}" value="{{ index }}">
+    <label for="id-{{ index }}">{{ option }}</label>
+
+    {% endfor %}
+</div>

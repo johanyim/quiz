@@ -1,0 +1,41 @@
+[package]
+name = "quiz"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.82"
+askama = { version = "0.12.1", features = ["with-axum"] }
+askama_axum = "0.4.0"
+axum = "0.7.5"
+num = "0.4.1"
+serde = { version = "1.0.197", features = ["derive"] }
+thiserror = "1.0.58"
+tokio = { version = "1.37.0", features = ["full"] }
+tower-http = { version = "0.5.2", features = ["fs"] }
+turf = "0.8.0"
+
+
+# [dependencies.turf]
+
+
+[package.metadata.turf]
+load_paths = ["styles"]
+minify = true
+debug = true
+
+
+[package.metadata.turf.class_names]
+template = "<original_name>"
+
+[package.metadata.turf.browser_targets]
+chrome = [80, 1, 2]
+firefox = 65
+safari = [12, 3]
+
+
+[package.metadata.turf.file_output]
+global_css_file_path = "static/assets/styles/global.css"
+# separate_css_files_path = "static/assets/styles"
