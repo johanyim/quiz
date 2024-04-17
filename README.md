@@ -1,8 +1,9 @@
+
 # Online Quiz app in Rust
 
 A web application for creating and sharing lightweight online quizzes.
 
-![quiz-question](https://github.com/johanyim/quiz/assets/37012949/7b761dde-cd47-4023-a305-9eaa1fae52ad)
+![quiz-question](https://github.com/johanyim/quiz/assets/37012949/56e66d27-9715-4d31-9d81-b27fe706f4cd)
 
 ## Features 
 
