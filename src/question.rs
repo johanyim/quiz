@@ -1,10 +1,13 @@
 #![allow(unused)]
 
+use crate::utils::*;
 use std::fmt::{self, format, Debug, Display};
 use askama::Template;
 // use askama_axum::IntoResponse;
 use axum::response::{IntoResponse, Response};
 use serde::Deserialize;
+
+use std::hash;
 
 // use crate::error::QuestionError::{self, *};
 // pub type Result<T> = core::result::Result<T, QuestionError>;
@@ -14,12 +17,10 @@ use anyhow::{anyhow, Result};
 
 pub trait Question  {
     // associated type for answer to this question, used in the check fn
-    // answer must be comparable as the answer will be compared to the response
-    type Answer: PartialEq;
-
+    // answer must be hashable as the user response is hashed and compared to the hashed answer
     fn show(&self);
 
-    fn check(&self, answer: Self::Answer) -> bool;
+    fn check(&self, answer: u64) -> bool;
 }
 
 
@@ -28,28 +29,28 @@ pub trait Question  {
 pub struct MultipleChoiceRadio<T: Display>{
     question_text: String,
     options: Vec<T>,
-    correct_answer: usize, 
+    correct_answer: u64, 
 }
 
 
 
 impl<T: Display> MultipleChoiceRadio<T> {
     pub fn new(question_text: &str, options: Vec<T>, correct_answer: usize) -> Self {
+
         MultipleChoiceRadio {
             question_text: question_text.to_string(),
             options, 
-            correct_answer
+            correct_answer: calculate_hash(&correct_answer)
         }
     }
 }
 
 
 impl<T: Display> Question for MultipleChoiceRadio<T> {
-    type Answer = usize;
     fn show(&self) {
         todo!();
     }
-    fn check(&self, answer: Self::Answer) -> bool {
+    fn check(&self, answer: u64) -> bool {
         answer == self.correct_answer 
     }
 }
@@ -61,7 +62,7 @@ impl<T: Display> Question for MultipleChoiceRadio<T> {
 #[template(path = "integer.html")] 
 pub struct Integer<'a>{
     question_text: String,
-    correct_answer: i32, 
+    correct_answer: u64, 
     range: Option<(i32, i32)>,
     tolerance: Option<i32>,
     units: Option<&'a str>,
@@ -71,7 +72,7 @@ impl Integer<'_> {
     pub fn new(question_text: &str, correct_answer: i32) -> Self {
         Integer {
             question_text: question_text.to_string(),
-            correct_answer,
+            correct_answer: calculate_hash(&correct_answer),
             range: None,
             tolerance: None, 
             units: None,
@@ -104,11 +105,11 @@ impl<'a> Integer<'a> {
 
 
 impl Question for Integer<'_> {
-    type Answer = i32;
+    // type Answer = i32;
     fn show(&self) {
         todo!();
     }
-    fn check(&self, answer: Self::Answer) -> bool {
+    fn check(&self, answer: u64) -> bool {
         answer == self.correct_answer 
     }
 }
@@ -119,7 +120,7 @@ impl Question for Integer<'_> {
 #[template(path = "text.html")]
 pub struct Text{
     question_text: String,
-    correct_answer: String, 
+    correct_answer: u64, 
     // character_count: usize
 }
 
@@ -127,7 +128,7 @@ impl Text {
     pub fn new(question_text: &str, correct_answer: &str) -> Self {
         Text {
             question_text: question_text.to_string(),
-            correct_answer: correct_answer.to_string(),
+            correct_answer: calculate_hash(&correct_answer),
             // character_count: 500,
         }
     }
@@ -135,11 +136,11 @@ impl Text {
 
 
 impl Question for Text {
-    type Answer = String;
+    // type Answer = String;
     fn show(&self) {
         todo!();
     }
-    fn check(&self, answer: Self::Answer) -> bool {
+    fn check(&self, answer: u64) -> bool {
         answer == self.correct_answer 
     }
 }

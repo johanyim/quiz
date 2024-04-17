@@ -1,11 +1,15 @@
 #![allow(warnings)]
 
+mod quiz;
 mod question;
-// mod error;
+mod error;
+mod utils;
+
 use askama::Template;
 // use turf;
 
 use question::*;
+use quiz::*;
 
 use anyhow::Result;
 
